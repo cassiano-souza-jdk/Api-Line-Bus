@@ -3,7 +3,6 @@
 ### Projeto desenvolvido na **ETEC de Lins (148)**  
 
 **Integrantes do projeto:**  
-- Bianca Duarte Correia  
 - Cassiano Maximiano de Souza  
 - Gabriel Massaki Uemura  
 - Henry de Souza Freitas  
