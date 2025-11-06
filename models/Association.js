@@ -1,6 +1,6 @@
-import { Line } from '../models/Line.js';
-import { Stop } from '../models/Stop.js';
-import { Circuit } from '../models/Circuit.js';
+const Line = require('./Line');
+const Stop = require ("./Stop");
+const Circuit = require ("./Circuit");
 
-Line.belongsToMany(Stop, { through: Circuit, foreignKey: 'lineId'});
-Stop.belongsToMany(Line, { through: Circuit, foreignKey: 'stopId'});
+Line.belongsToMany(Stop, { through: Circuit});
+Stop.belongsToMany(Stop, { through: Circuit});

@@ -1,6 +1,6 @@
-import { Line } from '../models/Line.js';
+const Line = require('../models/Line.js');
 
-export const LineRepository = {
+const LineRepository = {
     async create(data) {
         return await Line.create(data);
     },
@@ -29,4 +29,6 @@ export const LineRepository = {
         await line.destroy();
         return line;
     }
-};
+}
+
+module.exports = LineRepository;

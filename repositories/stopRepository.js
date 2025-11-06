@@ -1,7 +1,6 @@
-import { Association } from "sequelize";
-import { Stop } from "../models/Stop.js";
+const Stop = require ("../models/Stop.js");
 
-  export const StopRepository = {
+  const StopRepository = {
 
     async create(data) {
       return await Stop.create(data);
@@ -34,3 +33,4 @@ import { Stop } from "../models/Stop.js";
     }
   }
 
+module.exports = StopRepository;

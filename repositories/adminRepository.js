@@ -1,6 +1,6 @@
-import { Admin } from "../models/Admin.js";
+const Admin = require ("../models/Admin.js");
 
-  export const adminRepository = {
+  const AdminRepository = {
     async create(data) {
       return await Admin.create(data);
     },
@@ -31,3 +31,4 @@ import { Admin } from "../models/Admin.js";
     }
   }
 
+module.exports = AdminRepository;

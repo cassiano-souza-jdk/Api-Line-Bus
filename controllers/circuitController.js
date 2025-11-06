@@ -99,7 +99,7 @@ export const CircuitController = {
         }
     },
 
-   async updateStopBySequence(req, res) {
+    async updateStopBySequence(req, res) {
         try {
             const lineId = req.params.lineId;
             const sequence = req.params.sequence;
