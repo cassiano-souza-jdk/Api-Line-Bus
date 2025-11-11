@@ -7,22 +7,15 @@ import request from "supertest";
 import app from "../app.js";
 import {sequelize} from "../config/database.js";
 
-//Abre o sequelize para executar os testes
-beforeAll(async () => {
-    await sequelize.sync();
-});
-afterAll(async () => {
-    await sequelize.close();
-});
-
-describe("Circuit test", () => {
     let token;
     let createdAdminId;
     let createdLineId;
     let createdStopId;
-    let createdCircuitId;
-
+    
+//Abre o sequelize para executar os testes
 //----Ligar os tokens e pegar id's para o circuit funcionar----
+beforeAll(async () => {
+    await sequelize.sync();
 //ADMIN ROUTES -> Create
     it("adminRoutesCreate", async () => {
         const res = await request(app)
@@ -72,7 +65,36 @@ describe("Circuit test", () => {
         expect(res.statusCode).toBe(201);
         createdStopId = res.body;
     });
+});
 
+//----Desligar os tokens e pegar id's para o circuit funcionar----
+afterAll(async () => {
+//STOP ROUTES -> Delete
+    it("stopRoutesDelete", async () => {
+        const res = await request(app)
+        .delete(`/paradas/${createdStopId.id}`)
+        .set("Authorization", `Bearer ${token}`);
+        expect(res.statusCode).toBe(204);
+    });
+//LINE ROUTES -> Delete
+    it("lineRoutesDelete", async () => {
+        const res = await request(app)
+        .delete(`/linhas/${createdLineId.id}`)
+        .set("Authorization", `Bearer ${token}`);
+        expect(res.statusCode).toBe(204);
+    });
+//ADMIN ROUTES -> Delete
+    it("adminRoutesDelete", async () => {
+        const res = await request(app)
+        .delete(`/admins/${createdAdminId.id}`)
+        .set("Authorization", `Bearer ${token}`);
+        expect(res.statusCode).toBe(204);
+    });
+    await sequelize.close();
+});
+
+describe("Circuit test", () => {
+    let createdCircuitId;
 //CIRCUIT ROUTES -> Create
     it("circuitRoutesCreate", async () => {
         const res = await request(app)
@@ -162,29 +184,6 @@ describe("Circuit test", () => {
     it("circuitRoutesDelete", async () => {
         const res = await request(app)
         .delete(`/rotas/${createdCircuitId.id}`)
-        .set("Authorization", `Bearer ${token}`);
-        expect(res.statusCode).toBe(204);
-    });
-
-//----Desligar os tokens e pegar id's para o circuit funcionar----
-//STOP ROUTES -> Delete
-    it("stopRoutesDelete", async () => {
-        const res = await request(app)
-        .delete(`/paradas/${createdStopId.id}`)
-        .set("Authorization", `Bearer ${token}`);
-        expect(res.statusCode).toBe(204);
-    });
-//LINE ROUTES -> Delete
-    it("lineRoutesDelete", async () => {
-        const res = await request(app)
-        .delete(`/linhas/${createdLineId.id}`)
-        .set("Authorization", `Bearer ${token}`);
-        expect(res.statusCode).toBe(204);
-    });
-//ADMIN ROUTES -> Delete
-    it("adminRoutesDelete", async () => {
-        const res = await request(app)
-        .delete(`/admins/${createdAdminId.id}`)
         .set("Authorization", `Bearer ${token}`);
         expect(res.statusCode).toBe(204);
     });
