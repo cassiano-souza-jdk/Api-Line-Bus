@@ -7,14 +7,16 @@ import stopRoutes from './routes/stopRoutes.js';
 import circuitRoutes from './routes/circuitRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 
+import { swaggerUi, swaggerSpec } from './docs/swagger.js';
+
 const app = express();
 app.use(express.json());
-
 
 app.use(lineRoutes);
 app.use(stopRoutes);
 app.use(circuitRoutes);
 app.use(adminRoutes);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 export async function init() {
   try {

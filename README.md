@@ -26,6 +26,7 @@ Com esta API, é possível:
 - **JsonWebToken (JWT)**  
 - **dotenv**  
 - **Jest**  
+- **Swagger**
 
 ## Visão Geral  
 
